@@ -1,0 +1,33 @@
+.table-cell-content{
+ padding: 20px;   
+ padding-left:5vw;
+ padding-right:5vw;
+
+}
+
+.table-name{
+    display: flex;
+    height: 70px;
+    align-items: center;
+}
+
+.table-row{
+    border:2px solid #f0f0f0;
+}
+
+.table-row-thumbnail{
+        background: #ccc;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+}
+
+.table-action-container{
+    display: flex;
+    justify-content: end;
+    padding: 20px;
+    gap: 10px;
+}

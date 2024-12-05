@@ -1,0 +1,14 @@
+.navbar{
+    display: flex;
+    width: 15vw;
+    height: 100vw;
+    position: absolute;
+}
+.navbar>ul>li{
+    display: flex;
+    gap: 10px;
+    font-size: 1.2rem;
+    height: 50px;
+    align-items: center;
+    padding-left:20px ;
+}
