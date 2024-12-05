@@ -1,0 +1,17 @@
+.user-icon {
+    font-size: 30px;
+    color: #fff;
+}
+
+.stats-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 20px;
+}
+
+.stats-info {
+    padding: 8px 10px;
+}

@@ -1,14 +1,31 @@
 .navbar{
     display: flex;
+    flex-direction: column;
     width: 15vw;
     height: 100vw;
     position: absolute;
 }
-.navbar>ul>li{
+.page{
     display: flex;
     gap: 10px;
     font-size: 1.2rem;
     height: 50px;
     align-items: center;
     padding-left:20px ;
+    width: 100%;
+}
+.page:hover{
+    cursor: pointer;
+}
+
+.navbar-list {
+    width:100%;
+}
+.active-page{
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    font-weight: bold;
+    font-family: "Righteous";
 }

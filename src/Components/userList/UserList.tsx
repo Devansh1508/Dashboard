@@ -1,4 +1,3 @@
-import React from 'react';
 import './css/MemberList.css';
 import Button from '../common/Button';
 
@@ -50,10 +49,10 @@ const users: User[] = [
 ];
 
 
-const MemberList: React.FC = () => {
+const UserList= () => {
     return (
         <div className='bg-secondary flex flex-col w-fit'>
-            <h2 className='flex font-bold text-3xl justify-center'>Member Table</h2>
+            <h2 className='flex font-bold text-3xl justify-center'></h2>
             <table>
                 <thead>
                     <tr className='text-xl'>
@@ -91,4 +90,5 @@ const MemberList: React.FC = () => {
     );
 };
 
-export default MemberList;
+export default UserList;
+export { users };

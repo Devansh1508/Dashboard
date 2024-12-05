@@ -1,17 +1,33 @@
-import { FaUser } from 'react-icons/fa';
+import { FaUser, FaUserShield, FaUserCheck, FaUserTimes } from 'react-icons/fa';
+import './css/stats.css';
 
 interface StatsProps {
     category: string;
     totalUsers: number;
+    iconBackgroundColor: string;
 }
 
-const Stats = ({ category, totalUsers }:StatsProps) => {
+const Stats = ({ category, totalUsers, iconBackgroundColor }: StatsProps) => {
+    const renderIcon = () => {
+        switch (category.toLowerCase()) {
+            case 'admin':
+                return <FaUserShield className="user-icon"/>;
+            case 'active':
+                return <FaUserCheck className="user-icon"  />;
+            case 'inactive':
+                return <FaUserTimes className="user-icon"/>;
+            case 'user':
+            default:
+                return <FaUser className="user-icon"/>;
+        }
+    };
+
     return (
-        <div className="stats-card flex gap-10 bg-secondary py-5 px-9">
-            <div className="icon-container rounded-full bg-[#00a8e8] p-5">
-                <FaUser className="user-icon" style={{ fontSize: '30px', color: 'white' }} />
+        <div className="stats-card bg-secondary">
+            <div className="icon-container rounded-full p-5" style={{ backgroundColor: iconBackgroundColor }}>
+                {renderIcon()}
             </div>
-            <div className="stats-info px-5 py-2">
+            <div className="stats-info">
                 <h3>{category}</h3>
                 <p>Total {category}: {totalUsers}</p>
             </div>

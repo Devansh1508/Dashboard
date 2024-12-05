@@ -1,27 +1,39 @@
-import React from 'react';
-import { FaTachometerAlt, FaUserShield, FaUser } from 'react-icons/fa';
-import './css/navbar.css';
+import { setActive } from "../../redux/slices/navSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import "./css/navbar.css";
+import { FaTachometerAlt, FaUser } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
-    const menuItems = [
-        { icon: <FaTachometerAlt />, label: 'Dashboard' },
-        { icon: <FaUserShield />, label: 'Admin' },
-        { icon: <FaUser />, label: 'User' }
-    ];
+  const menuItems = [
+    { icon: <FaTachometerAlt />, label: "Dashboard", path: "/" },
+    { icon: <FaUser />, label: "User", path: "/user" },
+  ];
 
-    return (
-        <div className="navbar">
-            <div className="active-page"></div>
-            <ul>
-                {menuItems.map((item, index) => (
-                    <li key={index}>
-                        {item.icon}
-                        <span>{item.label}</span>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+  const activePage = useSelector(
+    (state: { nav: { active: number } }) => state.nav.active
+  );
+  const dispatch = useDispatch();
+
+  return (
+    <div className="navbar bg-secondary">
+      <div className="active-page">{menuItems[activePage].label}</div>
+      <ul className="navbar-list">
+        {menuItems.map((item, index) => (
+          <Link to={item.path}>
+            <li
+              key={index}
+              className={`${activePage === index ? "bg-primary" : ""} page` }
+              onClick={() => dispatch(setActive(index))}
+            >
+              {item.icon}
+              <span>{item.label}</span>
+            </li>
+          </Link>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default Navbar;

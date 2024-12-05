@@ -1,14 +1,16 @@
 import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home.jsx'
+import Dashboard from './pages/Dashboard'
+import User from './pages/User'
 import Navbar from './Components/navbar/Navbar.tsx'
 import './App.css'
 
 function App() {
   return (
-    <div>
+    <div className='bg-primary'>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/user" element={<User />} />
       </Routes>
     </div>
   )
