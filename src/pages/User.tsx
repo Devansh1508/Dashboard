@@ -1,9 +1,10 @@
 import { useState } from "react";
 // importing components
 import { users } from "../Components/userList/UserList";
-import UserList from "../Components/userList/UserList";
+// import UserList from "../Components/userList/UserList";
 import Thumbnail from "../Components/common/Thumbnail";
-import AddUser from "../Components/userList/AddUser";
+// import AddUser from "../Components/userList/AddUser";
+import PermissionTable from "../Components/Permission/PermissionTable";
 // icons from material ui
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
@@ -38,9 +39,7 @@ const User = () => {
           </div>
         </div>
       </div>
-      <AddUser />
-
-      <UserList />
+      <PermissionTable/>
     </div>
   );
 };

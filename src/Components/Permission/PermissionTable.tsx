@@ -14,7 +14,7 @@ const PermissionTable: React.FC = () => {
     const [data, setData] = useState<UserPermission[]>([
         { 
             id: 1, 
-            name: 'John Doe', 
+            name: 'Admin', 
             permissions: ['read', 'create'], 
             date: '2023-10-01' 
         },
