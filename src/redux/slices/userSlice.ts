@@ -6,6 +6,7 @@ interface User {
     name: string;
     role: string;
     date: string;
+    active: boolean;
 }
 
 interface UserState {

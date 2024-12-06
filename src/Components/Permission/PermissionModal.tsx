@@ -5,6 +5,7 @@ import { updateUserData } from '../../redux/slices/userSlice';
 
 export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionModalProps) {
   const [selectedRole, setSelectedRole] = useState<string>();
+  const [selectedStatus, setSelectedStatus] = useState<boolean>(false);
   const roleList = useSelector((state: { role: { roleList: { id: number; roleName: string; description: string; permissions: Permission[] }[] } }) => state.role.roleList);
   const userData = useSelector((state: { user: { userData: { id: number; name: string; role: string; date: string }[] } }) => state.user.userData);
 
@@ -19,10 +20,19 @@ export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionMo
     setSelectedRole(roleName);
   };
 
+  const handleToggleStatus = (status: string) => {
+    if (status === 'active') {
+      setSelectedStatus(true);
+    } else {
+      setSelectedStatus(false);
+    }
+  };
+
   const handleSave = () => {
     const newUser = { ...user };
     if (selectedRole) {
       newUser.role = selectedRole;
+      newUser.active = selectedStatus;
     }
     dispatch(updateUserData(newUser))
     setIsPermissionModalOpen(false);
@@ -35,15 +45,47 @@ export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionMo
         <div className="space-y-3">
             {roleList.map(role => (
               <label key={role.id} className="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded cursor-pointer">
-                <input
-                  type="checkbox"
-                  onChange={() => handleTogglePermission(role.roleName)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
-                />
-                <span className="capitalize text-gray-700">{role.roleName}</span>
+              <input
+                type="radio"
+                name="role"
+                value={role.roleName}
+                checked={selectedRole === role.roleName}
+                onChange={() => handleTogglePermission(role.roleName)}
+                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
+              />
+              <span className="capitalize text-gray-700">{role.roleName}</span>
               </label>
             ))}
         </div>
+
+            <div className="mt-4">
+              <h3 className="text-lg font-medium mb-2">Status</h3>
+              <div className="flex items-center space-x-4">
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="status"
+                    value="active"
+                    // checked={user.status === 'active'}
+                    onChange={() => handleToggleStatus('active')}
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
+                  />
+                  <span className="capitalize text-gray-700">Active</span>
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="status"
+                    value="inactive"
+                    // checked={user.status === 'inactive'}
+                    onChange={() => handleToggleStatus('inactive')}
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
+                  />
+                  <span className="capitalize text-gray-700">Inactive</span>
+                </label>
+              </div>
+            </div>
+
         <div className="mt-6 flex flex-col-reverse sm:flex-row sm:justify-end space-y-reverse space-y-2 sm:space-y-0 sm:space-x-2">
           <button
             onClick={() => {setIsPermissionModalOpen(false)}}

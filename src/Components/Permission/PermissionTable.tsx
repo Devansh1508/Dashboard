@@ -54,6 +54,7 @@ const PermissionTable: React.FC = () => {
                 <th className="permission-table-header">Name</th>
                 <th className="permission-table-header">Role</th>
                 <th className="permission-table-header">Date</th>
+                <th className="permission-table-header">Status</th>
                 <th className="permission-table-header">Actions</th>
               </tr>
             </thead>
@@ -72,6 +73,9 @@ const PermissionTable: React.FC = () => {
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-500">
                     {item.date}
+                  </td>
+                  <td className={`px-4 ${item.active===true?'text-green-400':'text-red-600'} font-bold py-4 text-sm text-gray-500`}>
+                    {item.active===true? 'Active' : 'Inactive'}
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-500">
                     <div className="flex space-x-3">

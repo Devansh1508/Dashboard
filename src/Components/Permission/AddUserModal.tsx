@@ -7,6 +7,7 @@ import { UserPermission } from "./permission";
 interface FormData {
   name: string;
   permission: string;
+  active: boolean;
 }
 
 export function AddUserModal() {
@@ -27,8 +28,11 @@ export function AddUserModal() {
       id: userData[userData.length-1].id + 1,
       name: data.name,
       role: data.permission,
-      date: new Date().toISOString().split('T')[0]
+      date: new Date().toISOString().split('T')[0],
+      active:data.active
   };
+
+  console.log("data ac",newUser)
     dispatch(addUserData(newUser));
     reset();
   };
@@ -63,20 +67,39 @@ export function AddUserModal() {
             </p>
             <div className="space-y-3">
                     {roleList.map((role) => (
-                    <div key={role.id} className="flex items-center space-x-2">
-                      <input
-                      type="checkbox"
-                      id={role.roleName}
-                      {...register("permission")}
-                      value={role.roleName}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
-                      />
-                      <label htmlFor={role.roleName} className="text-gray-700">
-                      {role.roleName}
-                      </label>
-                    </div>
+                      <div key={role.id} className="flex items-center space-x-2">
+                        <input
+                          type="radio"
+                          id={role.roleName}
+                          {...register("permission", { required: true })}
+                          value={role.roleName}
+                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
+                        />
+                        <label htmlFor={role.roleName} className="text-gray-700">
+                          {role.roleName}
+                        </label>
+                      </div>
                     ))}
+                    {errors.permission && <span className="text-red-500">This field is required</span>}
             </div>
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="active"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Status
+            </label>
+            <select
+              id="active"
+              {...register("active", { required: true })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+            >
+              <option value="true">Active</option>
+              <option value="false">Inactive</option>
+            </select>
+            {errors.active && <span className="text-red-500">This field is required</span>}
           </div>
 
           <div className="flex flex-col sm:flex-row sm:justify-end space-y-2 sm:space-y-0 sm:space-x-2">
