@@ -47,7 +47,7 @@ const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
   };
 
   return (
-    <div className="w-[30vw] border-2 bg-secondary border-gray-300 p-4 rounded-xl">
+    <div className="w-[30vw] max-xl:w-[500px] mx-lg:w-[400px] max-sm:w-[80vw] border-2 bg-secondary border-gray-300 p-4 rounded-xl">
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col p-4 gap-3 font-medium">
           <label htmlFor="roleName">Role Name</label>
@@ -84,16 +84,16 @@ const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
             </div>
           ))}
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 max-sm:flex-col">
           <button
-            className="bg-tertiary text-white p-4 rounded-lg py-2"
+            className="hover:bg-blue-700 bg-blue-600 max-lg:p-2 text-white p-4 rounded-lg py-2"
             type="submit"
           >
             {existingRole!==undefined ? "Update Role" : "Add Role"}
           </button>
 
           <button
-            className="bg-red-500 text-white p-4 rounded-lg py-2"
+            className="border-[1px] border-gray-300 max-lg:p-2 p-4 rounded-lg py-2"
             onClick={() => dispatch(setIsVisible(false))}
           >
             Cancel

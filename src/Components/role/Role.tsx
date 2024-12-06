@@ -35,7 +35,7 @@ const Role: React.FC<RoleProps> = ({ id, roleName, description, permissions,  se
     }
     
     return (
-        <div className="bg-secondary w-[20vw] border-md p-5">
+        <div className="bg-secondary w-[98%] rounded-lg hover:bg-gray-200 shadow-md border-md p-5">
             <div className="flex justify-between text-3xl">
                 <div className='flex'>
                 <AdminPanelSettingsIcon style={{fontSize:'50px'}}/>

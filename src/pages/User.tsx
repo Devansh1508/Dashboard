@@ -20,7 +20,7 @@ const User = () => {
   );
 
   return (
-    <div className="ml-[16vw] h-[100vh] overflow-x-hidden">
+    <div className="ml-[16vw] max-xl:ml-3 max-sm:w-[96%] h-[100vh] overflow-x-hidden">
       <div className="flex pt-5 justify-between items-center mb-4">
         <input
           type="text"

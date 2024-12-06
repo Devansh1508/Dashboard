@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { roles } from '../../Components/role/roleListData';
+import { roles } from '../../data/roleListData';
 
 interface Role {
   id: number;

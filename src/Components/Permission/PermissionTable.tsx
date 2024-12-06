@@ -38,7 +38,7 @@ const PermissionTable: React.FC = () => {
         <div className="mb-4 flex justify-end">
           <button
             onClick={() => dispatch(setIsVisible(true))}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            className="inline-flex max-sm:text-sm max-sm:p-2 items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
             <PersonAddIcon />
             Add User

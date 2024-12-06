@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import userData from '../../Components/Permission/userData';
+import userData from '../../data/userData';
 
 interface User {
     id: number;

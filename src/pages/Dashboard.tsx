@@ -30,9 +30,9 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="bg-primary w-[85vw] h-[100vh] ml-[16vw]">
+      <div className="bg-primary max-xl:ml-0 max-xl:w-[100vw] w-[85vw] min-h-[100vh] pb-10 ml-[16vw]">
         <ActionBar />
-        <div className="flex gap-5 w-[97%] my-10">
+        <div className="flex gap-5 max-xl:pl-4 flex-wrap w-[97%] my-10">
           <Stats
             category="Admin"
             totalUsers={100}
@@ -60,7 +60,7 @@ const Dashboard = () => {
             onClick={() => dispatch(setIsVisible(true))}
           />
         </div>
-        <div className="w-[96%] flex flex-wrap gap-2">
+        <div className="w-[96%] flex max-xl:items-center flex-col justify-evenly flex-wrap gap-2">
           {roleList.map((role) => (
             <Role
               key={role.id}
@@ -73,10 +73,10 @@ const Dashboard = () => {
             />
           ))}
         </div>
-      </div>
+        </div>
       <div
         className={`${
-          isVisible ? "backdrop-blur-sm" : "hidden"
+          isVisible ? "inset-0 bg-black bg-opacity-50" : "hidden"
         } absolute top-0 z-10 flex w-[100vw] h-[100vh] justify-center items-center`}
       >
         <AddRole

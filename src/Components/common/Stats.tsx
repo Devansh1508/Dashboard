@@ -23,12 +23,12 @@ const Stats = ({ category, totalUsers, iconBackgroundColor }: StatsProps) => {
     };
 
     return (
-        <div className="stats-card bg-secondary">
-            <div className="icon-container rounded-full p-5" style={{ backgroundColor: iconBackgroundColor }}>
+        <div className="bg-white max-sm:w-[40vw] rounded-[10px] flex-wrap max-xl:p-[12px] p-[20px] shadow-[0_0_10px_rgba(0,0,0,0.1)] flex gap-[20px] max-xl:flex max-xl:flex-col max-xl:items-center">
+            <div className="icon-containe rounded-full h-[75px] w-[75px] p-5" style={{ backgroundColor: iconBackgroundColor }}>
                 {renderIcon()}
             </div>
             <div className="stats-info">
-                <h3>{category}</h3>
+                <h3 className='font-semibold'>{category}</h3>
                 <p>Total {category}: {totalUsers}</p>
             </div>
         </div>

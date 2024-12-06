@@ -8,7 +8,7 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ onClick, label}) => {
     return (
-        <button className='bg-tertiary custom-button' onClick={onClick}>
+        <button className='bg-blue-600 hover:bg-blue-700 custom-button' onClick={onClick}>
             {label}
         </button>
     );
