@@ -43,6 +43,9 @@ const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
       dispatch(addRole(newRole));
     }
     dispatch(setIsVisible(false));
+    setRoleName("");
+    setDescription("");
+    setPermissions([]);
   };
 
   return (

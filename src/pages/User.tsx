@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Thumbnail from "../Components/common/Thumbnail";
 import PermissionTable from "../Components/Permission/PermissionTable";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import {motion} from 'framer-motion';
 import api from '../../api/api'
 import { useDispatch } from "react-redux";
 import { setUserData } from "../redux/slices/userSlice";
@@ -18,7 +19,9 @@ const User = () => {
 
   return (
     <div className="ml-[16vw] max-xl:ml-3 max-sm:w-[96%] h-[100vh] overflow-x-hidden">
-      <div className="flex pt-5 justify-between items-center mb-4">
+      <motion.div className="flex pt-5 justify-between items-center mb-4"
+      initial={{ opacity: 0 }} animate={{ opacity: 1 ,transition: { delay: 0.3 }}}
+      >
         <input
           type="text"
           placeholder="Search users..."
@@ -33,7 +36,7 @@ const User = () => {
             <Thumbnail name="John Doe" bgColor="#2f98fd" />
           </div>
         </div>
-      </div>
+      </motion.div>
       <PermissionTable/>
     </div>
   );

@@ -31,6 +31,20 @@ const PermissionTable: React.FC = () => {
 
   useEffect(() => {}, [userData]);
 
+  const cardVariants: Variants = {
+    offscreen: {
+      y: 100,
+    },
+    onscreen: {
+      y: 50,
+      transition: {
+        type: "spring",
+        bounce: 0.4,
+        duration: 0.8,
+      },
+    },
+  };
+
   return (
     <>
       <div className="w-[96%]">
@@ -111,7 +125,14 @@ const PermissionTable: React.FC = () => {
         {/* Mobile view */}
         <div className="md:hidden space-y-4">
           {userData.map((item, index) => (
-            <div key={item.id} className="bg-white rounded-lg shadow p-4">
+            <motion.div
+              key={item.id}
+              className="bg-white rounded-lg shadow p-4"
+              variants={cardVariants}
+              initial="offscreen"
+              whileInView="onscreen"
+              viewport={{ once: true, amount: 0.8 }}
+            >
               <div className="flex justify-between items-start mb-2">
                 <div>
                   <span className="text-xs text-gray-500">#{index + 1}</span>
@@ -157,7 +178,7 @@ const PermissionTable: React.FC = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
