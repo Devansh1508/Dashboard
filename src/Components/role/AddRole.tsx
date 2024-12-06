@@ -1,26 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { setIsVisible } from "../../redux/slices/formSlice";
-import { useDispatch } from "react-redux";
+import { addRole, updateRole } from "../../redux/slices/roleSlice";
+import { useDispatch,useSelector } from "react-redux";
 
 interface AddRoleProps {
-  addRole: (role: {
-    id: number;
-    roleName: string;
-    description: string;
-    permissions: string[];
-  }) => void;
-  updateRole: (role: {
-    id: number;
-    roleName: string;
-    description: string;
-    permissions: string[];
-  }) => void;
-  roleList: {
-    id: number;
-    roleName: string;
-    description: string;
-    permissions: string[];
-  }[];
   existingRole?: {
     id: number;
     roleName: string;
@@ -29,12 +12,13 @@ interface AddRoleProps {
   };
 }
 
-const AddRole: React.FC<AddRoleProps> = ({ addRole, updateRole, roleList, existingRole }) => {
+const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
   const [roleName, setRoleName] = useState(existingRole?.roleName || "");
   const [description, setDescription] = useState(existingRole?.description || "");
   const [permissions, setPermissions] = useState<string[]>(existingRole?.permissions || []);
   const dispatch = useDispatch();
 
+  const roleList=useSelector((state:string[]) => state.role.roleList);
   const allPermissions = ["Read", "Write", "Execute", "Delete"];
 
   const handleCheckboxChange = (permission: string) => {
@@ -53,10 +37,11 @@ const AddRole: React.FC<AddRoleProps> = ({ addRole, updateRole, roleList, existi
       description: description,
       permissions: permissions,
     };
-    if (existingRole) {
-      updateRole(newRole);
+    if (existingRole!==undefined) {
+      console.log("updating role",existingRole);
+      dispatch(updateRole(newRole));
     } else {
-      addRole(newRole);
+      dispatch(addRole(newRole));
     }
     dispatch(setIsVisible(false));
   };
@@ -104,7 +89,7 @@ const AddRole: React.FC<AddRoleProps> = ({ addRole, updateRole, roleList, existi
             className="bg-tertiary text-white p-4 rounded-lg py-2"
             type="submit"
           >
-            {existingRole ? "Update Role" : "Add Role"}
+            {existingRole!==undefined ? "Update Role" : "Add Role"}
           </button>
 
           <button

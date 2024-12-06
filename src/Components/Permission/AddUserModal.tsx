@@ -1,27 +1,18 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSelector,useDispatch } from "react-redux";
+import { addUserData } from "../../redux/slices/userSlice";
 import { setIsVisible } from "../../redux/slices/formSlice";
-import { Permission } from "./permission";
-
-const AVAILABLE_PERMISSIONS: Permission[] = [
-  "read",
-  "create",
-  "update",
-  "delete",
-  "admin",
-];
+import { UserPermission } from "./permission";
 
 interface FormData {
   name: string;
-  permissions: Permission[];
+  permission: string;
 }
 
-interface AddUserModalProps {
-  onAdd: (name: string, permissions: Permission[]) => void;
-}
-
-export function AddUserModal({ onAdd }: AddUserModalProps) {
+export function AddUserModal() {
     const isVisible = useSelector((state: { form: { isVisible: boolean } }) => state.form.isVisible);
+    const roleList = useSelector((state:string[]) => state.role.roleList);
+    const userData = useSelector((state: { user: { userData: UserPermission[] } }) => state.user.userData);
     const dispatch=useDispatch();
 
   const {
@@ -32,7 +23,13 @@ export function AddUserModal({ onAdd }: AddUserModalProps) {
   } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    onAdd(data.name.trim(), data.permissions);
+    const newUser: UserPermission = {
+      id: userData[userData.length-1].id + 1,
+      name: data.name,
+      role: data.permission,
+      date: new Date().toISOString().split('T')[0]
+  };
+    dispatch(addUserData(newUser));
     reset();
   };
 
@@ -65,20 +62,20 @@ export function AddUserModal({ onAdd }: AddUserModalProps) {
               Permissions
             </p>
             <div className="space-y-3">
-              {AVAILABLE_PERMISSIONS.map((permission) => (
-                <div key={permission} className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id={permission}
-                    {...register("permissions")}
-                    value={permission}
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
-                  />
-                  <label htmlFor={permission} className="text-gray-700">
-                    {permission}
-                  </label>
-                </div>
-              ))}
+                    {roleList.map((role) => (
+                    <div key={role.id} className="flex items-center space-x-2">
+                      <input
+                      type="checkbox"
+                      id={role.roleName}
+                      {...register("permission")}
+                      value={role.roleName}
+                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
+                      />
+                      <label htmlFor={role.roleName} className="text-gray-700">
+                      {role.roleName}
+                      </label>
+                    </div>
+                    ))}
             </div>
           </div>
 

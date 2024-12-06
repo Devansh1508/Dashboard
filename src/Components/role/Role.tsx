@@ -4,18 +4,35 @@ import EditIcon from '@mui/icons-material/Edit';
 import {PermissionBadge} from '../Permission/PermissionBadge';
 import { Permission } from '../Permission/permission';
 import { useDispatch } from 'react-redux';
+import { deleteRole } from '../../redux/slices/roleSlice';
 import { setIsVisible } from '../../redux/slices/formSlice';
 
 interface RoleProps {
+    id: number;
     roleName: string;
     description: string;
     permissions: Permission[];
-    addRole: () => void;
-    deleteRole: () => void;
+    setExistingRole: (role: {
+        id: number;
+        roleName: string;
+        description: string;
+        permissions: string[];
+    }) => void;
 }
 
-const Role: React.FC<RoleProps> = ({ roleName, description, permissions, addRole, deleteRole }) => {
+const Role: React.FC<RoleProps> = ({ id, roleName, description, permissions,  setExistingRole }) => {
     const dispatch = useDispatch();
+    const handleEdit = () => {
+        setExistingRole(
+            {
+                id: id,
+                roleName: roleName,
+                description: description,
+                permissions: permissions
+            }
+        );
+        dispatch(setIsVisible(true));
+    }
     
     return (
         <div className="bg-secondary w-[20vw] border-md p-5">
@@ -24,7 +41,7 @@ const Role: React.FC<RoleProps> = ({ roleName, description, permissions, addRole
                 <AdminPanelSettingsIcon style={{fontSize:'50px'}}/>
                 <h2>{roleName}</h2>
                 </div>
-                <EditIcon onClick={() => dispatch(setIsVisible(true))} style={{ fontSize: '30px', cursor:'pointer', fill: '#038ff7' }} />
+                <EditIcon onClick={() => handleEdit()} style={{ fontSize: '30px', cursor:'pointer', fill: '#038ff7' }} />
             </div>
             <p className='text-gray-500'>
                 {description.length > 50 ? `${description.substring(0, 50)}...` : description}
@@ -36,7 +53,7 @@ const Role: React.FC<RoleProps> = ({ roleName, description, permissions, addRole
                 ))}
             </ul>
             <div className='flex justify-end'>
-                    <DeleteIcon onClick={()=>{deleteRole()}} style={{ fontSize: '30px', fill: '#dc2626', cursor:'pointer' }} />
+                    <DeleteIcon onClick={()=>{dispatch(deleteRole(id))}} style={{ fontSize: '30px', fill: '#dc2626', cursor:'pointer' }} />
             </div>
         </div>
     );

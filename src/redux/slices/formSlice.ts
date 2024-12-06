@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface isVisibleState {
-  isVisible: boolean
+  isVisible: boolean,
 }
 
 const initialState: isVisibleState = {
