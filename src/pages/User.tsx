@@ -1,23 +1,20 @@
-import { useState } from "react";
-// importing components
-import { users } from "../Components/userList/UserList";
-// import UserList from "../Components/userList/UserList";
+import { useEffect } from "react";
 import Thumbnail from "../Components/common/Thumbnail";
-// import AddUser from "../Components/userList/AddUser";
 import PermissionTable from "../Components/Permission/PermissionTable";
-// icons from material ui
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import api from '../../api/api'
+import { useDispatch } from "react-redux";
+import { setUserData } from "../redux/slices/userSlice";
 
 const User = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const dispatch = useDispatch();
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // using mock api's to get the data 
+  useEffect(() => {
+    api.get('/users').then(response => {
+      dispatch(setUserData(response.data.userData));
+    });
+  }, []);
 
   return (
     <div className="ml-[16vw] max-xl:ml-3 max-sm:w-[96%] h-[100vh] overflow-x-hidden">
@@ -25,8 +22,6 @@ const User = () => {
         <input
           type="text"
           placeholder="Search users..."
-          value={searchTerm}
-          onChange={handleSearchChange}
           className="p-2 border border-gray-300 rounded"
         />
         <div className="flex gap-5 items-center pr-4">

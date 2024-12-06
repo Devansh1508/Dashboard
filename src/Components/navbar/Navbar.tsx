@@ -1,6 +1,7 @@
 import { setActive } from "../../redux/slices/navSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import "./css/navbar.css";
 import { FaTachometerAlt, FaUser } from "react-icons/fa";
 
@@ -17,7 +18,9 @@ const Navbar: React.FC = () => {
 
   return (
 
-    <div className="max-xl:flex-row max-xl:pt-0 max-xl:h-[7vh] max-xl:w-[100vw] flex flex-col w-[15vw] h-[100vh] xl:fixed bg-secondary">
+    <motion.div className="max-xl:flex-row max-xl:pt-0 max-xl:h-[7vh] max-xl:w-[100vw] flex flex-col w-[15vw] h-[100vh] xl:fixed bg-secondary"
+    initial={{ opacity: 0 }} animate={{ opacity: 1 , transition: { duration: 0.5 } }}
+    >
       {/* <div className="active-page"></div> */}
       <div className="text-3xl max-sm:text-[1.35rem] max-sm:p-2 max-xl:p-4 flex justify-center p-7 font-bold font-[righteous]">
       {menuItems[activePage].label}
@@ -36,7 +39,7 @@ const Navbar: React.FC = () => {
           </Link>
         ))}
       </ul>
-    </div>
+    </motion.div>
   );
 };
 

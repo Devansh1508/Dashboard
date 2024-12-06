@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setIsVisible } from "../redux/slices/formSlice";
 import { Permission } from "../Components/role/permission";
 import { setRole } from "../redux/slices/roleSlice";
+import api from '../../api/api'
 
 const Dashboard = () => {
   // const [roleList, setRoleList] = useState(roles);
@@ -18,14 +19,21 @@ const Dashboard = () => {
   const roleList=useSelector((state:string[]) => state.role.roleList);
   const dispatch = useDispatch();
 
-  const deleteRole = (id: number) => {
-    setRoleList(roleList.filter((role) => role.id !== id));
-    const roleNames = roleList.map((role) => role.roleName);
-    dispatch(setRole(roleNames));
-  };
+  useEffect(() => {
+    api.get('/roles').then(response => {
+      dispatch(setRole(response.data.roles));
+    });
+  }, []);
+
+  // mock data 
+  const statsData = [
+    { category: "Admin", totalUsers: 100, iconBackgroundColor: "#2f98fd" },
+    { category: "Users", totalUsers: 100, iconBackgroundColor: "#54daff" },
+    { category: "Active", totalUsers: 100, iconBackgroundColor: "#fdbea0" },
+    { category: "Inactive", totalUsers: 50, iconBackgroundColor: "#ff6b6b" },
+  ];
 
   useEffect(() => {
-    console.log("form useEffect", isVisible);
   }, [roleList, isVisible]);
 
   return (
@@ -33,26 +41,14 @@ const Dashboard = () => {
       <div className="bg-primary max-xl:ml-0 max-xl:w-[100vw] w-[85vw] min-h-[100vh] pb-10 ml-[16vw]">
         <ActionBar />
         <div className="flex gap-5 max-xl:pl-4 flex-wrap w-[97%] my-10">
-          <Stats
-            category="Admin"
-            totalUsers={100}
-            iconBackgroundColor={"#2f98fd"}
-          />
-          <Stats
-            category="Users"
-            totalUsers={100}
-            iconBackgroundColor={"#54daff"}
-          />
-          <Stats
-            category="Active"
-            totalUsers={100}
-            iconBackgroundColor={"#fdbea0"}
-          />
-          <Stats
-            category="Inactive"
-            totalUsers={50}
-            iconBackgroundColor={"#ff6b6b"}
-          />
+        {statsData.map((stat, index) => (
+            <Stats
+              key={index}
+              category={stat.category}
+              totalUsers={stat.totalUsers}
+              iconBackgroundColor={stat.iconBackgroundColor}
+            />
+          ))}
         </div>
         <div className="py-5 w-[96%] flex justify-end">
           <Button

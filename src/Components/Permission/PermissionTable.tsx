@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsVisible } from "../../redux/slices/formSlice.ts";
 import { deleteUserData } from "../../redux/slices/userSlice.ts";
 import { PermissionModal } from "./PermissionModal.tsx";
+import { motion } from "framer-motion";
 import "./css/permissionTable.css";
 
 const PermissionTable: React.FC = () => {
@@ -28,21 +29,21 @@ const PermissionTable: React.FC = () => {
     dispatch(deleteUserData({ id }));
   };
 
-  useEffect(() => {
-
-    }, [userData]);
+  useEffect(() => {}, [userData]);
 
   return (
     <>
-      <div className="w-[96%] overflow-hidden">
+      <div className="w-[96%]">
         <div className="mb-4 flex justify-end">
-          <button
+          <motion.button
             onClick={() => dispatch(setIsVisible(true))}
             className="inline-flex max-sm:text-sm max-sm:p-2 items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
             <PersonAddIcon />
             Add User
-          </button>
+          </motion.button>
         </div>
 
         {/* Desktop view */}
@@ -74,8 +75,16 @@ const PermissionTable: React.FC = () => {
                   <td className="px-4 py-4 text-sm text-gray-500">
                     {item.date}
                   </td>
-                  <td className={`px-4 ${item.active===true?'text-green-400':'text-red-600'} font-bold py-4 text-sm text-gray-500`}>
-                    {item.active===true? 'Active' : 'Inactive'}
+                  <td
+                    className={`px-4 ${
+                      item.active === true || item.active === "active"
+                        ? "text-green-400"
+                        : "text-red-600"
+                    } font-bold py-4 text-sm text-gray-500`}
+                  >
+                    {item.active === true || item.active === "active"
+                      ? "Active"
+                      : "Inactive"}
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-500">
                     <div className="flex space-x-3">
@@ -110,7 +119,30 @@ const PermissionTable: React.FC = () => {
                     {item.name}
                   </h3>
                 </div>
-                <div className="flex space-x-2">
+
+                <div className="flex h-[100%] space-x-2">
+                  {" "}
+                  <div>
+                    <h3
+                      className={` ${
+                        item.active === true || item.active === "active"
+                          ? "text-green-400"
+                          : "text-red-600"
+                      } text-lg font-medium text-gray-900`}
+                    >
+                      {item.active === true || item.active === "active"
+                        ? "Active"
+                        : "Inactive"}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-2 flex justify-between">
+                <div>
+                  <span className="text-xs text-gray-500 block">Date</span>
+                  <span className="text-sm text-gray-900">{item.date}</span>
+                </div>
+                <div>
                   <button
                     onClick={() => handleEdit(item)}
                     className="text-blue-600 hover:text-blue-900 p-1"
@@ -123,12 +155,6 @@ const PermissionTable: React.FC = () => {
                   >
                     <DeleteIcon />
                   </button>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div>
-                  <span className="text-xs text-gray-500 block">Date</span>
-                  <span className="text-sm text-gray-900">{item.date}</span>
                 </div>
               </div>
             </div>

@@ -38,7 +38,6 @@ const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
       permissions: permissions,
     };
     if (existingRole!==undefined) {
-      console.log("updating role",existingRole);
       dispatch(updateRole(newRole));
     } else {
       dispatch(addRole(newRole));

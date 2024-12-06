@@ -21,11 +21,7 @@ const roleSlice = createSlice({
   initialState,
   reducers: {
     setRole: (state, action: PayloadAction<Role[]>) => {
-      if (Array.isArray(action.payload)) {
-        state.roleList.push(...action.payload);
-      } else {
-        console.error('Payload is not an array:', action.payload);
-      }
+      state.roleList = action.payload;
     },
     addRole: (state, action: PayloadAction<Role>) => {
       state.roleList.push(action.payload);
