@@ -9,7 +9,6 @@ export interface UserPermission {
 }
 
 export interface PermissionModalProps {
-  isOpen: boolean;
   user: UserPermission | null;
-  onSave: (id: number, permissions: Permission[]) => void;
+  setIsPermissionModalOpen: (value: boolean) => void;
 }

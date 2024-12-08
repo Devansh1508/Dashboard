@@ -8,18 +8,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsVisible } from "../../redux/slices/formSlice.ts";
 import { deleteUserData } from "../../redux/slices/userSlice.ts";
 import { PermissionModal } from "./PermissionModal.tsx";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import api from "../../../api/api.ts";
 import {toast} from 'react-toastify';
-import { ToastContainer, Bounce } from 'react-toastify';
 import "./css/permissionTable.css";
+
 
 const PermissionTable: React.FC = () => {
   // const [data, setData] = useState<UserPermission[]>(userData);
   const [selectedUser, setSelectedUser] = useState<UserPermission | null>(null);
   const [isPermissionModalOpen, setIsPermissionModalOpen] = useState(false);
 
-  const userData = useSelector((state: any) => state.user.userData);
+  const userData = useSelector((state: { user: { userData: UserPermission[] } }) => state.user.userData);
 
   const dispatch = useDispatch();
 
@@ -37,7 +37,8 @@ const PermissionTable: React.FC = () => {
   };
 
   const deleteUserApi = (id: number) => {
-    api.delete(`/users/${id}`).then((response) => {
+    // api.delete(`/users/${id}`).then((response) => {
+      api.delete(`/users/${id}`).then(() => {
       dispatch(deleteUserData({ id }));
     }).catch((error) => {
       console.error(error);
@@ -114,12 +115,14 @@ const PermissionTable: React.FC = () => {
                   </td>
                   <td
                     className={`px-4 ${
-                      item.active === true || item.active === "active"
+                      item.active === true 
+                      // || item.active === "active"
                         ? "text-green-400"
                         : "text-red-600"
                     } font-bold py-4 text-sm text-gray-500`}
                   >
-                    {item.active === true || item.active === "active"
+                    {item.active === true
+                    //  || item.active === "active"
                       ? "Active"
                       : "Inactive"}
                   </td>
@@ -128,12 +131,14 @@ const PermissionTable: React.FC = () => {
                       <button
                         onClick={() => handleEdit(item)}
                         className="text-blue-600 hover:text-blue-900"
+                        title="Edit"
                       >
                         <EditIcon />
                       </button>
                       <button
                         onClick={() => handleDelete(item.id)}
                         className="text-red-600 hover:text-red-900"
+                        title="Delete"
                       >
                         <DeleteIcon />
                       </button>
@@ -172,12 +177,14 @@ const PermissionTable: React.FC = () => {
                   <div>
                     <h3
                       className={` ${
-                        item.active === true || item.active === "active"
+                        item.active === true 
+                        // || item.active === "active"
                           ? "text-green-400"
                           : "text-red-600"
                       } text-lg font-medium text-gray-900`}
                     >
-                      {item.active === true || item.active === "active"
+                      {item.active === true 
+                      // || item.active === "active"
                         ? "Active"
                         : "Inactive"}
                     </h3>
@@ -193,12 +200,14 @@ const PermissionTable: React.FC = () => {
                   <button
                     onClick={() => handleEdit(item)}
                     className="text-blue-600 hover:text-blue-900 p-1"
+                    title="Edit"
                   >
                     <EditIcon />
                   </button>
                   <button
                     onClick={() => handleDelete(item.id)}
                     className="text-red-600 hover:text-red-900 p-1"
+                    title="Delete"
                   >
                     <DeleteIcon />
                   </button>

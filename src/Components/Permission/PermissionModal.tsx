@@ -37,7 +37,7 @@ export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionMo
       newUser.role = selectedRole;
       
       if(selectedStatus!==undefined)newUser.active = selectedStatus;
-      newUser.active = user.active;  
+      else newUser.active = user.active;  
     }
     updateUserApi(newUser);
     toast('User permissions updated successfully');
@@ -45,7 +45,7 @@ export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionMo
   };
 
   const updateUserApi = (newUser: { id: number; name: string; role: string; date: string; active: boolean }) => {
-    api.put(`/users/${user.id}`, newUser).then((response) => {
+    api.put(`/users/${user.id}`, newUser).then(() => {
       dispatch(updateUserData(newUser));
     }).catch((error) => {
       console.error(error);

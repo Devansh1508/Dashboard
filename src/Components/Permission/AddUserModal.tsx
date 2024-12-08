@@ -15,7 +15,7 @@ interface FormData {
 
 export function AddUserModal() {
     const isVisible = useSelector((state: { form: { isVisible: boolean } }) => state.form.isVisible);
-    const roleList = useSelector((state:string[]) => state.role.roleList);
+    const roleList = useSelector((state: { role: { roleList: { id: number; roleName: string }[] } }) => state.role.roleList);
     const userData = useSelector((state: { user: { userData: UserPermission[] } }) => state.user.userData);
     const dispatch=useDispatch();
 
