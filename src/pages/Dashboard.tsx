@@ -32,8 +32,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    api.get("/roles").then((response) => {
-      dispatch(setRole(response.data.roles));
+    api.get("/roles").then(() => {
     });
   }, []);
 

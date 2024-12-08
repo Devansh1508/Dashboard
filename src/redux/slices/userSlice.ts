@@ -14,7 +14,7 @@ interface UserState {
 }
 
 const initialState: UserState = {
-    userData: userData,
+    userData: userData, 
 };
 
 const userSlice = createSlice({

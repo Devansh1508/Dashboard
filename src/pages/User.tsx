@@ -4,17 +4,13 @@ import PermissionTable from "../Components/Permission/PermissionTable";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import {motion} from 'framer-motion';
 import api from '../../api/api'
-import { useDispatch } from "react-redux";
-import { setUserData } from "../redux/slices/userSlice";
 import {ToastContainer} from 'react-toastify';
 
 const User = () => {
-  const dispatch = useDispatch();
 
   // using mock api's to get the data 
   useEffect(() => {
-    api.get('/users').then(response => {
-      dispatch(setUserData(response.data.userData));
+    api.get('/users').then(() => {
     });
   }, []);
 

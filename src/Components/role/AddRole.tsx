@@ -43,6 +43,7 @@ const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
       permissions: permissions,
     };
     if (existingRole!==undefined) {
+      console.log(existingRole);
       updateRoleApi(newRole);
       toast('Role updated successfully');
     } else {
@@ -58,9 +59,9 @@ const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
     toast('Please select at least one permission');
   };}
   
-  const updateRoleApi = (newRole: { id: number; roleName: string; description: string; permissions: string[] }) => {
-    api.post('/roles', existingRole).then(() => {
-    dispatch(updateRole(newRole));
+  const updateRoleApi = (newRole: { id: number; roleName: string; description: string; permissions: string[] }) => {  
+      api.put(`/roles/${newRole.id}`, newRole).then((response) => {
+    dispatch(updateRole(response.data));
   });
 }
 

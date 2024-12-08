@@ -14,7 +14,7 @@ const mock = new MockAdapter(api);
 
 // Mock GET /users
 mock.onGet('/users').reply(200, {
-  userData,
+  userData:users,
 });
 
 mock.onPost('/users').reply(config => {
@@ -26,7 +26,6 @@ mock.onPost('/users').reply(config => {
 
 // Mock PUT /users/:id
 mock.onPut(/\/users\/\d+/).reply(config => {
-  console.log("hello");
   const id = parseInt(config.url!.split('/').pop()!, 10);
   const updatedUser = JSON.parse(config.data);
   const index = users.findIndex(user => user.id === id);
@@ -57,12 +56,13 @@ mock.onPost('/roles').reply(config => {
 });
 
 // Mock PUT /roles/:id
-mock.onPut(/\/users\/\d+/).reply(config => {
+mock.onPut(/\/roles\/\d+/).reply(config => {
+  console.log("hello")
   const id = parseInt(config.url!.split('/').pop()!, 10);
   const updatedUser = JSON.parse(config.data);
-  const index = users.findIndex(user => user.id === id);
+  const index = roles.findIndex(user => user.id === id);
   if (index !== -1) {
-    users[index] = { ...users[index], ...updatedUser };
+    roles[index] = { ...roles[index], ...updatedUser };
     return [200, updatedUser];
   }
   return [404];

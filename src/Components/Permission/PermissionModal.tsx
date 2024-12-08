@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Permission, PermissionModalProps } from './permission';
-import { updateUserData } from '../../redux/slices/userSlice';
+import { setUserData, updateUserData } from '../../redux/slices/userSlice';
 import api from '../../../api/api';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -43,10 +43,10 @@ export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionMo
     toast('User permissions updated successfully');
     setIsPermissionModalOpen(false);
   };
-
+  
   const updateUserApi = (newUser: { id: number; name: string; role: string; date: string; active: boolean }) => {
-    api.put(`/users/${user.id}`, newUser).then(() => {
-      dispatch(updateUserData(newUser));
+    api.put(`/users/${user.id}`, newUser).then((response) => {
+      dispatch(updateUserData(response.data));
     }).catch((error) => {
       console.error(error);
       toast.error('Error updating user permissions');

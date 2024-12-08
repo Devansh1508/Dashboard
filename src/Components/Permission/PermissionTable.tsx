@@ -45,7 +45,7 @@ const PermissionTable: React.FC = () => {
     });
   }
 
-  useEffect(() => {}, [userData]);
+  // useEffect(() => {}, [userData]);
 
   const cardVariants: Variants = {
     offscreen: {
