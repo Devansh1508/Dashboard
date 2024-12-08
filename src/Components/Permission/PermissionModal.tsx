@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionModalProps) {
   const [selectedRole, setSelectedRole] = useState<string>();
-  const [selectedStatus, setSelectedStatus] = useState<boolean>(false);
+  const [selectedStatus, setSelectedStatus] = useState<boolean>();
   const roleList = useSelector((state: { role: { roleList: { id: number; roleName: string; description: string; permissions: Permission[] }[] } }) => state.role.roleList);
   const userData = useSelector((state: { user: { userData: { id: number; name: string; role: string; date: string }[] } }) => state.user.userData);
 
@@ -35,11 +35,12 @@ export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionMo
     const newUser = { ...user };
     if (selectedRole) {
       newUser.role = selectedRole;
-      newUser.active = selectedStatus;
+      
+      if(selectedStatus!==undefined)newUser.active = selectedStatus;
+      newUser.active = user.active;  
     }
     updateUserApi(newUser);
-    if(selectedRole)toast('User permissions updated successfully');
-    else toast('Please enter the field');
+    toast('User permissions updated successfully');
     setIsPermissionModalOpen(false);
   };
 

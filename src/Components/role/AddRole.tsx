@@ -34,7 +34,8 @@ const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newRole = {
+    if(permissions.length>0){
+      const newRole = {
       id: existingRole ? existingRole.id : roleList.length + 1,
       roleName: roleName,
       description: description,
@@ -51,7 +52,10 @@ const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
     setRoleName("");
     setDescription("");
     setPermissions([]);
-  };
+  }
+  else{
+    toast('Please select at least one permission');
+  };}
   
   const updateRoleApi = (newRole)=>{
     api.post('/roles', existingRole).then(response => {
