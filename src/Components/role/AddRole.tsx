@@ -15,13 +15,20 @@ interface AddRoleProps {
   };
 }
 
+interface Role {
+  id: number;
+  roleName: string;
+  description: string;
+  permissions: string[];
+}
+
 const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
   const [roleName, setRoleName] = useState(existingRole?.roleName || "");
   const [description, setDescription] = useState(existingRole?.description || "");
   const [permissions, setPermissions] = useState<string[]>(existingRole?.permissions || []);
   const dispatch = useDispatch();
 
-  const roleList=useSelector((state:string[]) => state.role.roleList);
+  const roleList = useSelector((state: { role: { roleList: Role[] } }) => state.role.roleList);
   const allPermissions = ["Read", "Write", "Execute", "Delete"];
 
   const handleCheckboxChange = (permission: string) => {
@@ -52,22 +59,22 @@ const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
     setRoleName("");
     setDescription("");
     setPermissions([]);
-    reset();
   }
   else{
     toast('Please select at least one permission');
   };}
   
-  const updateRoleApi = (newRole)=>{
-    api.post('/roles', existingRole).then(response => {
+  const updateRoleApi = (newRole: { id: number; roleName: string; description: string; permissions: string[] }) => {
+    api.post('/roles', existingRole).then(() => {
     dispatch(updateRole(newRole));
   });
 }
 
-const addRoleApi = (newRole)=>{
-  api.post('/roles', newRole).then(response => {
+const addRoleApi = (newRole: { id: number; roleName: string; description: string; permissions: string[] }) => {
+  api.post('/roles', newRole).then(() => {
     dispatch(addRole(newRole));
-    });}
+  });
+}
 
   return (
     <div className="w-[30vw] max-xl:w-[500px] mx-lg:w-[400px] max-sm:w-[80vw] border-2 bg-secondary border-gray-300 p-4 rounded-xl">
