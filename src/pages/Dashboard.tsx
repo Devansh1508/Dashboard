@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ActionBar from "../Components/ActionBar/ActionBar";
 import Stats from "../Components/common/Stats";
-import Role from "../Components/role/Role";
+import RoleSection from "../Components/role/RoleSection";
 import Button from "../Components/common/Button";
 import AddRole from "../Components/role/AddRole";
 import { useSelector, useDispatch } from "react-redux";
@@ -73,7 +73,7 @@ const Dashboard = () => {
         </div>
         <div className="w-[96%] flex max-xl:items-center flex-col justify-evenly flex-wrap gap-2">
           {roleList.map((role) => (
-            <Role
+            <RoleSection
               key={role.id}
               id={role.id}
               roleName={role.roleName}

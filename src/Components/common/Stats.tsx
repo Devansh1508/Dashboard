@@ -1,5 +1,6 @@
 import { FaUser, FaUserShield, FaUserCheck, FaUserTimes } from 'react-icons/fa';
 import {motion} from 'framer-motion';
+import './css/Stats.css';
 
 interface StatsProps {
     category: string;
