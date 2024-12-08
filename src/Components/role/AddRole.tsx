@@ -4,6 +4,7 @@ import { addRole, updateRole } from "../../redux/slices/roleSlice";
 import { useDispatch,useSelector } from "react-redux";
 import api from '../../../api/api';
 import {toast} from 'react-toastify';
+import {Role} from "./role";
 import 'react-toastify/dist/ReactToastify.css';
 
 interface AddRoleProps {
@@ -13,13 +14,6 @@ interface AddRoleProps {
     description: string;
     permissions: string[];
   };
-}
-
-interface Role {
-  id: number;
-  roleName: string;
-  description: string;
-  permissions: string[];
 }
 
 const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {

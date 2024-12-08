@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { setRole } from "../../redux/slices/roleSlice";
 import { setIsVisible } from "../../redux/slices/formSlice";
 import { useSelector } from "react-redux";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from "../../../api/api";
@@ -17,12 +17,17 @@ interface RoleProps {
   roleName: string;
   description: string;
   permissions: Permission[];
-  setExistingRole: (role: {
-    id: number;
-    roleName: string;
-    description: string;
-    permissions: string[];
-  }) => void;
+  setExistingRole: React.Dispatch<
+    React.SetStateAction<
+      | {
+          id: number;
+          roleName: string;
+          description: string;
+          permissions: Permission[];
+        }
+      | undefined
+    >
+  >;
 }
 
 const Role: React.FC<RoleProps> = ({
@@ -60,7 +65,18 @@ const Role: React.FC<RoleProps> = ({
     }
   };
 
-  const roleList = useSelector((state: any) => state.role.roleList);
+  interface RootState {
+    role: {
+      roleList: {
+        id: number;
+        roleName: string;
+        description: string;
+        permissions: string[];
+      }[];
+    };
+  }
+
+  const roleList = useSelector((state: RootState) => state.role.roleList);
 
   // calling api's 
   const handleDeleteRole = (id:number) => {
