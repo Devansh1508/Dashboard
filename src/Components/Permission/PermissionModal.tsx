@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Permission, PermissionModalProps } from './permission';
-import { setUserData, updateUserData } from '../../redux/slices/userSlice';
+import { updateUserData } from '../../redux/slices/userSlice';
 import api from '../../../api/api';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

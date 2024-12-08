@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -15,7 +15,6 @@ import "./css/permissionTable.css";
 
 
 const PermissionTable: React.FC = () => {
-  // const [data, setData] = useState<UserPermission[]>(userData);
   const [selectedUser, setSelectedUser] = useState<UserPermission | null>(null);
   const [isPermissionModalOpen, setIsPermissionModalOpen] = useState(false);
 
@@ -37,7 +36,6 @@ const PermissionTable: React.FC = () => {
   };
 
   const deleteUserApi = (id: number) => {
-    // api.delete(`/users/${id}`).then((response) => {
       api.delete(`/users/${id}`).then(() => {
       dispatch(deleteUserData({ id }));
     }).catch((error) => {

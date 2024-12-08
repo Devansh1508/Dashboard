@@ -7,7 +7,6 @@ import AddRole from "../Components/role/AddRole";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsVisible } from "../redux/slices/formSlice";
 import { Permission } from "../Components/Permission/permission";
-import { setRole } from "../redux/slices/roleSlice";
 import { ToastContainer } from "react-toastify";
 import api from "../../api/api";
 
