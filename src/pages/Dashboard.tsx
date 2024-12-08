@@ -35,7 +35,12 @@ const Dashboard = () => {
   ];
 
   useEffect(() => {
-  }, [roleList, isVisible]);
+    
+  }, [isVisible]);
+
+  useEffect(() => {
+      setExistingRole(undefined);
+    },[roleList]);
 
   return (
     <>

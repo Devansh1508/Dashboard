@@ -52,6 +52,7 @@ const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
     setRoleName("");
     setDescription("");
     setPermissions([]);
+    reset();
   }
   else{
     toast('Please select at least one permission');
