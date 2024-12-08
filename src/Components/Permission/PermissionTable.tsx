@@ -73,7 +73,15 @@ const PermissionTable: React.FC = () => {
         </div>
 
         {/* Desktop view */}
-        <div className="hidden md:block">
+        <motion.div className="hidden md:block"
+          // animate={{ x: -100 }}
+          initial={{ opacity: 0}}
+          animate={{
+            opacity: 1, 
+            transition: { ease: ["easeIn", "easeOut"] }
+          }}
+          // transition={{ duration: 0.3, delay: 1, ease: "linear" }}
+        >
           <table className="min-w-full bg-white rounded-lg shadow">
             <thead>
               <tr className="bg-gray-50 border-b">
@@ -132,7 +140,7 @@ const PermissionTable: React.FC = () => {
               ))}
             </tbody>
           </table>
-        </div>
+        </motion.div>
 
         {/* Mobile view */}
         <div className="md:hidden space-y-4">
