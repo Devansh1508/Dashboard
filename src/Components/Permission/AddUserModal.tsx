@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css'
 interface FormData {
   name: string;
   permission: string;
-  active: boolean;
+  active: string;
 }
 
 export function AddUserModal() {
@@ -27,15 +27,15 @@ export function AddUserModal() {
   } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    let temp=false;
-    if(data.active==='true')temp=true;
+    // let temp=false;
+    // if(data.active==='true')temp=true;
 
     const newUser: UserPermission = {
       id: userData[userData.length-1].id + 1,
       name: data.name,
       role: data.permission,
       date: new Date().toISOString().split('T')[0],
-      active:temp
+      active: data.active === 'true'
   };
 
     addUserApi(newUser);
