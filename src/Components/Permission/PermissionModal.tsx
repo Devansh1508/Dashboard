@@ -49,7 +49,6 @@ export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionMo
       dispatch(updateUserData(response.data));
     }).catch((error) => {
       console.error(error);
-      toast.error('Error updating user permissions');
     });
   };
 
