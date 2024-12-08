@@ -8,6 +8,8 @@ import { setRole } from "../../redux/slices/roleSlice";
 import { setIsVisible } from "../../redux/slices/formSlice";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import api from "../../../api/api";
 
 interface RoleProps {
@@ -62,6 +64,7 @@ const Role: React.FC<RoleProps> = ({
     api.delete(`/roles/${id}`).then(() => {
       const updatedRoleList = roleList.filter((role: { id: number }) => role.id !== id);
       dispatch(setRole(updatedRoleList));
+      toast('Role deleted successfully');
     });
   };
 

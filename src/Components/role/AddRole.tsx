@@ -3,6 +3,8 @@ import { setIsVisible } from "../../redux/slices/formSlice";
 import { addRole, updateRole } from "../../redux/slices/roleSlice";
 import { useDispatch,useSelector } from "react-redux";
 import api from '../../../api/api';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface AddRoleProps {
   existingRole?: {
@@ -40,8 +42,10 @@ const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
     };
     if (existingRole!==undefined) {
       updateRoleApi(newRole);
+      toast('Role updated successfully');
     } else {
       addRoleApi(newRole);
+      toast('Role added successfully');
     }
     dispatch(setIsVisible(false));
     setRoleName("");

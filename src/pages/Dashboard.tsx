@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setIsVisible } from "../redux/slices/formSlice";
 import { Permission } from "../Components/role/permission";
 import { setRole } from "../redux/slices/roleSlice";
+import { ToastContainer } from "react-toastify";
 import api from '../../api/api'
 
 const Dashboard = () => {
@@ -79,6 +80,7 @@ const Dashboard = () => {
           existingRole={existingRole}
         />
       </div>
+        <ToastContainer />
     </>
   );
 };

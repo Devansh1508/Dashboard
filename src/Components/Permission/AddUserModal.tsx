@@ -4,6 +4,8 @@ import { addUserData } from "../../redux/slices/userSlice";
 import { setIsVisible } from "../../redux/slices/formSlice";
 import { UserPermission } from "./permission";
 import api from '../../../api/api';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 interface FormData {
   name: string;
@@ -38,6 +40,8 @@ export function AddUserModal() {
 
     addUserApi(newUser);
     reset();
+    toast('User added successfully');
+    dispatch(setIsVisible(false))
   };
 
   const addUserApi = (newUser: UserPermission) => {
@@ -117,7 +121,6 @@ export function AddUserModal() {
             <button
               type="submit"
               className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-              onClick={() => dispatch(setIsVisible(false))}
             >
               Add User
             </button>

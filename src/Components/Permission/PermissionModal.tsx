@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Permission, PermissionModalProps } from './permission';
 import { updateUserData } from '../../redux/slices/userSlice';
 import api from '../../../api/api';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionModalProps) {
   const [selectedRole, setSelectedRole] = useState<string>();
@@ -36,6 +38,8 @@ export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionMo
       newUser.active = selectedStatus;
     }
     updateUserApi(newUser);
+    if(selectedRole)toast('User permissions updated successfully');
+    else toast('Please enter the field');
     setIsPermissionModalOpen(false);
   };
 
@@ -44,6 +48,7 @@ export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionMo
       dispatch(updateUserData(newUser));
     }).catch((error) => {
       console.error(error);
+      toast.error('Error updating user permissions');
     });
   };
 
@@ -75,6 +80,7 @@ export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionMo
                     type="radio"
                     name="status"
                     value="active"
+                    required
                     // checked={user.status === 'active'}
                     onChange={() => handleToggleStatus('active')}
                     className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
@@ -86,6 +92,7 @@ export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionMo
                     type="radio"
                     name="status"
                     value="inactive"
+                    required
                     // checked={user.status === 'inactive'}
                     onChange={() => handleToggleStatus('inactive')}
                     className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"

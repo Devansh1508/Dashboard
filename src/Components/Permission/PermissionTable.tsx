@@ -10,8 +10,9 @@ import { deleteUserData } from "../../redux/slices/userSlice.ts";
 import { PermissionModal } from "./PermissionModal.tsx";
 import { motion } from "framer-motion";
 import api from "../../../api/api.ts";
+import {toast} from 'react-toastify';
+import { ToastContainer, Bounce } from 'react-toastify';
 import "./css/permissionTable.css";
-import { del } from "motion/react-client";
 
 const PermissionTable: React.FC = () => {
   // const [data, setData] = useState<UserPermission[]>(userData);
@@ -29,6 +30,7 @@ const PermissionTable: React.FC = () => {
 
   const handleDelete = (id: number) => {
     deleteUserApi(id);
+    toast('User deleted successfully');
   };
 
   const deleteUserApi = (id: number) => {

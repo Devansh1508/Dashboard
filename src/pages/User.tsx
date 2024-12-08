@@ -6,6 +6,7 @@ import {motion} from 'framer-motion';
 import api from '../../api/api'
 import { useDispatch } from "react-redux";
 import { setUserData } from "../redux/slices/userSlice";
+import {ToastContainer} from 'react-toastify';
 
 const User = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const User = () => {
         </div>
       </motion.div>
       <PermissionTable/>
+      <ToastContainer />  
     </div>
   );
 };
