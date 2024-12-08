@@ -40,6 +40,6 @@ The dashboard application provides the following features:
    ```sh
    git clone https://github.com/your-username/dashboard.git
 
-   cd dashboard
+   cd Dashboard
 
-   npm
+   npm i
