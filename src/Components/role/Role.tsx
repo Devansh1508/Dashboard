@@ -34,6 +34,9 @@ const Role: React.FC<RoleProps> = ({
 }) => {
   const dispatch = useDispatch();
   const handleEdit = () => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     setExistingRole({
       id: id,
       roleName: roleName,

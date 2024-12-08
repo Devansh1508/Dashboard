@@ -26,6 +26,9 @@ const PermissionTable: React.FC = () => {
   const handleEdit = (user: UserPermission) => {
     setSelectedUser(user);
     setIsPermissionModalOpen(true);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleDelete = (id: number) => {
@@ -73,7 +76,7 @@ const PermissionTable: React.FC = () => {
         </div>
 
         {/* Desktop view */}
-        <motion.div className="hidden md:block"
+          <motion.div className="hidden md:block"
           // animate={{ x: -100 }}
           initial={{ opacity: 0}}
           animate={{
