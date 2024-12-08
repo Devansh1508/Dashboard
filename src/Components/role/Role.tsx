@@ -4,9 +4,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import { PermissionBadge } from "../Permission/PermissionBadge";
 import { Permission } from "../Permission/permission";
 import { useDispatch } from "react-redux";
-import { deleteRole } from "../../redux/slices/roleSlice";
+import { setRole } from "../../redux/slices/roleSlice";
 import { setIsVisible } from "../../redux/slices/formSlice";
+import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import api from "../../../api/api";
 
 interface RoleProps {
   id: number;
@@ -53,6 +55,16 @@ const Role: React.FC<RoleProps> = ({
     }
   };
 
+  const roleList = useSelector((state: any) => state.role.roleList);
+
+  // calling api's 
+  const handleDeleteRole = (id:number) => {
+    api.delete(`/roles/${id}`).then(() => {
+      const updatedRoleList = roleList.filter((role: { id: number }) => role.id !== id);
+      dispatch(setRole(updatedRoleList));
+    });
+  };
+
   return (
     <motion.div
       className="bg-secondary w-[98%] rounded-lg hover:bg-gray-200 shadow-md border-md p-5"
@@ -85,7 +97,7 @@ const Role: React.FC<RoleProps> = ({
       <div className="flex justify-end">
         <DeleteIcon
           onClick={() => {
-            dispatch(deleteRole(id));
+            handleDeleteRole(id);
           }}
           style={{ fontSize: "30px", fill: "#dc2626", cursor: "pointer" }}
         />

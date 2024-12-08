@@ -9,7 +9,9 @@ import { setIsVisible } from "../../redux/slices/formSlice.ts";
 import { deleteUserData } from "../../redux/slices/userSlice.ts";
 import { PermissionModal } from "./PermissionModal.tsx";
 import { motion } from "framer-motion";
+import api from "../../../api/api.ts";
 import "./css/permissionTable.css";
+import { del } from "motion/react-client";
 
 const PermissionTable: React.FC = () => {
   // const [data, setData] = useState<UserPermission[]>(userData);
@@ -26,8 +28,16 @@ const PermissionTable: React.FC = () => {
   };
 
   const handleDelete = (id: number) => {
-    dispatch(deleteUserData({ id }));
+    deleteUserApi(id);
   };
+
+  const deleteUserApi = (id: number) => {
+    api.delete(`/users/${id}`).then((response) => {
+      dispatch(deleteUserData({ id }));
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
 
   useEffect(() => {}, [userData]);
 
@@ -139,6 +149,9 @@ const PermissionTable: React.FC = () => {
                   <h3 className="text-lg font-medium text-gray-900">
                     {item.name}
                   </h3>
+                <div>
+                  {item.role}
+                </div>
                 </div>
 
                 <div className="flex h-[100%] space-x-2">

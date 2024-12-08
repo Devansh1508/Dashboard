@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { setIsVisible } from "../../redux/slices/formSlice";
 import { addRole, updateRole } from "../../redux/slices/roleSlice";
 import { useDispatch,useSelector } from "react-redux";
+import api from '../../../api/api';
 
 interface AddRoleProps {
   existingRole?: {
@@ -38,15 +39,26 @@ const AddRole: React.FC<AddRoleProps> = ({  existingRole }) => {
       permissions: permissions,
     };
     if (existingRole!==undefined) {
-      dispatch(updateRole(newRole));
+      updateRoleApi(newRole);
     } else {
-      dispatch(addRole(newRole));
+      addRoleApi(newRole);
     }
     dispatch(setIsVisible(false));
     setRoleName("");
     setDescription("");
     setPermissions([]);
   };
+  
+  const updateRoleApi = (newRole)=>{
+    api.post('/roles', existingRole).then(response => {
+    dispatch(updateRole(newRole));
+  });
+}
+
+const addRoleApi = (newRole)=>{
+  api.post('/roles', newRole).then(response => {
+    dispatch(addRole(newRole));
+    });}
 
   return (
     <div className="w-[30vw] max-xl:w-[500px] mx-lg:w-[400px] max-sm:w-[80vw] border-2 bg-secondary border-gray-300 p-4 rounded-xl">

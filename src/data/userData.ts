@@ -9,7 +9,7 @@ interface User {
 const userData: User[] = [
     { 
         id: 1, 
-        name: 'Admin', 
+        name: 'John Doe', 
         role: 'Admin', 
         date: '2023-10-01' ,
         active: true

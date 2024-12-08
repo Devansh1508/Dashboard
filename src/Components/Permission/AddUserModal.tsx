@@ -3,6 +3,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { addUserData } from "../../redux/slices/userSlice";
 import { setIsVisible } from "../../redux/slices/formSlice";
 import { UserPermission } from "./permission";
+import api from '../../../api/api';
 
 interface FormData {
   name: string;
@@ -35,9 +36,17 @@ export function AddUserModal() {
       active:temp
   };
 
-    dispatch(addUserData(newUser));
+    addUserApi(newUser);
     reset();
   };
+
+  const addUserApi = (newUser: UserPermission) => {
+    api.post('/users', newUser).then(() => {
+      dispatch(addUserData(newUser));
+    }).catch((error
+    ) => {
+      console.error(error);
+    });}
 
   return (
     <div className={`fixed ${isVisible?'':'hidden'} inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50`}>

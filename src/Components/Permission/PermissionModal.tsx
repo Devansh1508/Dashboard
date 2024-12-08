@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Permission, PermissionModalProps } from './permission';
 import { updateUserData } from '../../redux/slices/userSlice';
+import api from '../../../api/api';
 
 export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionModalProps) {
   const [selectedRole, setSelectedRole] = useState<string>();
@@ -34,8 +35,16 @@ export function PermissionModal({ user, setIsPermissionModalOpen }: PermissionMo
       newUser.role = selectedRole;
       newUser.active = selectedStatus;
     }
-    dispatch(updateUserData(newUser))
+    updateUserApi(newUser);
     setIsPermissionModalOpen(false);
+  };
+
+  const updateUserApi = (newUser: { id: number; name: string; role: string; date: string; active: boolean }) => {
+    api.put(`/users/${user.id}`, newUser).then((response) => {
+      dispatch(updateUserData(newUser));
+    }).catch((error) => {
+      console.error(error);
+    });
   };
 
   return (
